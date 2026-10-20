@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import cl.duocuc.pagoflex.ui.screens.SituacionScreen
+import cl.duocuc.pagoflex.navigation.AppNavegacion
 import cl.duocuc.pagoflex.ui.theme.theme.PagoFlexTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PagoFlexTheme {
-                SituacionScreen()
+                AppNavegacion()
             }
         }
     }

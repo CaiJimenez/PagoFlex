@@ -13,10 +13,6 @@ class SituacionViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(SituacionUiState())
     val uiState: StateFlow<SituacionUiState> = _uiState.asStateFlow()
 
-    init {
-        cargar("UF-01")
-    }
-
     fun cargar(codigoUsuario: String) {
 
         val usuario = DatosPrueba.usuarios.first { it.codigo == codigoUsuario }

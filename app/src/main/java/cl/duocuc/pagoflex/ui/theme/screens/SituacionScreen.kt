@@ -68,7 +68,6 @@ fun SituacionContenido(estado: SituacionUiState) {
 
         TarjetaResumen(estado)
 
-        // Vencidos, en tono positivo (RN-11): sin "deuda", sin "atrasado"
         if (estado.cantidadVencidos > 0) {
             val texto = if (estado.cantidadVencidos == 1) {
                 "Tienes 1 pago para ponerte al día"
@@ -87,7 +86,6 @@ fun SituacionContenido(estado: SituacionUiState) {
     }
 }
 
-// La tarjeta azul con el total (RF-02)
 @Composable
 fun TarjetaResumen(estado: SituacionUiState) {
     Card(
@@ -124,7 +122,6 @@ fun TarjetaResumen(estado: SituacionUiState) {
     }
 }
 
-// Vista previa en Android Studio, sin abrir el emulador
 @Preview(showBackground = true)
 @Composable
 fun SituacionPreview() {
