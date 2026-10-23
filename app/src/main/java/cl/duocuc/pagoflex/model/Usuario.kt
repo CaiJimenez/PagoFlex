@@ -3,6 +3,7 @@ package cl.duocuc.pagoflex.model
 data class Usuario(
 
     val codigo: String,
+    val correo: String,
     val nombreUser: String,
     val rut: String,
     val rol: Rol
