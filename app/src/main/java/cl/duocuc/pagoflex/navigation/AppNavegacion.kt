@@ -1,11 +1,16 @@
 package cl.duocuc.pagoflex.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import cl.duocuc.pagoflex.ui.screens.DetalleScreen
 import cl.duocuc.pagoflex.ui.screens.InicioScreen
 import cl.duocuc.pagoflex.ui.screens.LoginScreen
+import cl.duocuc.pagoflex.ui.screens.SituacionScreen
+import cl.duocuc.pagoflex.viewmodel.SituacionViewModel
 
 @Composable
 fun AppNavegacion() {
@@ -31,7 +36,36 @@ fun AppNavegacion() {
                     navController.navigate(Rutas.Login.ruta) {
                         popUpTo(navController.graph.id) { inclusive = true }
                     }
+                },
+                onAbrir = { id ->
+                    when (id) {
+                        "compromisos" -> navController.navigate(Rutas.Situacion.crear(codigo))
+                        // Pasos 5, 6 y 7: "mis_reportes", "bandeja" y "mis_casos"
+                    }
                 }
+            )
+        }
+
+        composable(Rutas.Situacion.ruta) { entrada ->
+            val codigo = entrada.arguments?.getString("codigo") ?: ""
+            val situacionViewModel: SituacionViewModel = viewModel()
+
+            LaunchedEffect(codigo) {
+                situacionViewModel.cargar(codigo)
+            }
+
+            SituacionScreen(
+                viewModel = situacionViewModel,
+                onVerCompromiso = { folio -> navController.navigate(Rutas.Detalle.crear(folio)) }
+            )
+        }
+
+        composable(Rutas.Detalle.ruta) { entrada ->
+            val folio = entrada.arguments?.getString("folio") ?: ""
+            DetalleScreen(
+                folio = folio,
+                onVolver = { navController.popBackStack() },
+                onReportar = { /* Paso 4: ir a la pantalla de reportar */ }
             )
         }
     }

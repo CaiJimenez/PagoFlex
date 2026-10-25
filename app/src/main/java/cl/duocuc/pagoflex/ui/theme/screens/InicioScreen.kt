@@ -1,37 +1,23 @@
 package cl.duocuc.pagoflex.ui.screens
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.lifecycle.viewmodel.compose.viewModel
 import cl.duocuc.pagoflex.data.DatosPrueba
-import cl.duocuc.pagoflex.model.Rol
-
-import cl.duocuc.pagoflex.viewmodel.SituacionViewModel
-
+import cl.duocuc.pagoflex.data.Menus
 
 @Composable
-fun InicioScreen(codigo: String, onSalir: () -> Unit) {
+fun InicioScreen(
 
+    codigo: String,
+    onSalir: () -> Unit,
+    onAbrir: (String) -> Unit
+) {
     val usuario = DatosPrueba.usuarios.first { it.codigo == codigo }
 
-    when (usuario.rol) {
+    MenuScreen(
 
-        Rol.USUARIO -> {
-            val situacionViewModel: SituacionViewModel = viewModel ()
-
-            LaunchedEffect(codigo) {
-                situacionViewModel.cargar(codigo)
-            }
-
-            SituacionScreen(viewModel = situacionViewModel)
-        }
-
-        Rol.AGENTE -> {
-            ReportesScreen (onSalir = onSalir)
-        }
-
-        Rol.EJECUTIVO -> {
-            EmpresaScreen (onSalir = onSalir)
-        }
-    }
+        usuario = usuario,
+        opciones = Menus.para(usuario.rol),
+        onAbrir = onAbrir,
+        onSalir = onSalir
+    )
 }

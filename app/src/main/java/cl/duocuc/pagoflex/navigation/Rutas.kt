@@ -8,4 +8,11 @@ sealed class Rutas(val ruta: String) {
         fun crear(codigo: String) = "inicio/$codigo"
     }
 
+    data object Situacion : Rutas("situacion/{codigo}") {
+        fun crear(codigo: String) = "situacion/$codigo"
+    }
+
+    data object Detalle : Rutas("detalle/{folio}") {
+        fun crear(folio: String) = "detalle/$folio"
+    }
 }
