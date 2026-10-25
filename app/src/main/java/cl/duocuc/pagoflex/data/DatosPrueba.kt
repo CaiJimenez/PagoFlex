@@ -40,33 +40,66 @@ object DatosPrueba {
     )
 
     val compromisos = listOf(
+        Compromiso(folio = "CP-2026-0101", codigoUsuario = "UF-01", empresa = empresa("EC-08"),
+            concepto = "Arriendo departamento octubre", numeroCuota = 10, totalCuotas = 12,
+            monto = 520000, fechaVencimiento = LocalDate.of(2026, 10, 10)),
+        Compromiso(folio = "CP-2026-0102", codigoUsuario = "UF-01", empresa = empresa("EC-06"),
+            concepto = "Cuota social octubre", numeroCuota = 10, totalCuotas = 12,
+            monto = 15000, fechaVencimiento = LocalDate.of(2026, 10, 5),
+            estado = EstadoCompromiso.VENCIDO, recargoAplicado = 2000),
+        Compromiso(folio = "CP-2026-0103", codigoUsuario = "UF-01", empresa = empresa("EC-05"),
+            concepto = "Aporte mensual octubre",
+            monto = 10000, fechaVencimiento = LocalDate.of(2026, 10, 15)),
+        Compromiso(folio = "CP-2026-0104", codigoUsuario = "UF-01", empresa = empresa("EC-03"),
+            concepto = "Crédito de consumo", numeroCuota = 7, totalCuotas = 24,
+            monto = 86400, fechaVencimiento = LocalDate.of(2026, 9, 25),
+            estado = EstadoCompromiso.PAGADO),
+        Compromiso(folio = "CP-2026-0105", codigoUsuario = "UF-01", empresa = empresa("EC-03"),
+            concepto = "Crédito de consumo", numeroCuota = 8, totalCuotas = 24,
+            monto = 86400, fechaVencimiento = LocalDate.of(2026, 10, 25)),
 
-        Compromiso(
+        Compromiso(folio = "CP-2026-0106", codigoUsuario = "UF-02", empresa = empresa("EC-01"),
+            concepto = "Cuota pie departamento", numeroCuota = 14, totalCuotas = 36,
+            monto = 310000, fechaVencimiento = LocalDate.of(2026, 9, 30),
+            estado = EstadoCompromiso.VENCIDO, recargoAplicado = 8500),
+        Compromiso(folio = "CP-2026-0107", codigoUsuario = "UF-02", empresa = empresa("EC-01"),
+            concepto = "Cuota pie departamento", numeroCuota = 15, totalCuotas = 36,
+            monto = 310000, fechaVencimiento = LocalDate.of(2026, 10, 30)),
 
-            folio = "CP-2026-0101",
-            codigoUsuario = "UF-01",
-            empresa = empresa("EC-08"),
-            concepto = "Arriendo departamento octubre",
-            numeroCuota = 10,
-            totalCuotas = 12,
-            monto = 520000,
-            fechaVencimiento = LocalDate.of(2026, 10, 10)
-
-        ),
-
-        Compromiso(
-
-            folio = "CP-2026-0102",
-            codigoUsuario = "UF-01",
-            empresa = empresa("EC-06"),
-            concepto = "Cuota social octubre",
-            numeroCuota = 10,
-            totalCuotas = 12,
-            monto = 15000,
-            fechaVencimiento = LocalDate.of(2026, 10, 5),
-            estado = EstadoCompromiso.VENCIDO,
-            recargoAplicado = 2000
-
-        )
+        Compromiso(folio = "CP-2026-0108", codigoUsuario = "UF-03", empresa = empresa("EC-04"),
+            concepto = "Seguro de hogar octubre", numeroCuota = 10, totalCuotas = 12,
+            monto = 18900, fechaVencimiento = LocalDate.of(2026, 10, 1),
+            estado = EstadoCompromiso.PAGADO),
+        Compromiso(folio = "CP-2026-0109", codigoUsuario = "UF-04", empresa = empresa("EC-07"),
+            concepto = "Arancel octubre", numeroCuota = 8, totalCuotas = 10,
+            monto = 142000, fechaVencimiento = LocalDate.of(2026, 10, 5),
+            estado = EstadoCompromiso.EN_REVISION),
+        Compromiso(folio = "CP-2026-0110", codigoUsuario = "UF-05", empresa = empresa("EC-02"),
+            concepto = "Mensualidad octubre", numeroCuota = 8, totalCuotas = 10,
+            monto = 185000, fechaVencimiento = LocalDate.of(2026, 10, 10)),
+        Compromiso(folio = "CP-2026-0111", codigoUsuario = "UF-06", empresa = empresa("EC-03"),
+            concepto = "Crédito de consumo", numeroCuota = 19, totalCuotas = 36,
+            monto = 54200, fechaVencimiento = LocalDate.of(2026, 9, 20),
+            estado = EstadoCompromiso.ANULADO),
+        Compromiso(folio = "CP-2026-0112", codigoUsuario = "UF-07", empresa = empresa("EC-06"),
+            concepto = "Cuota social octubre", numeroCuota = 10, totalCuotas = 12,
+            monto = 15000, fechaVencimiento = LocalDate.of(2026, 10, 5),
+            estado = EstadoCompromiso.PAGADO)
     )
+
+    val reportes = listOf(
+        Reporte(codigo = "REP-0012", folio = "CP-2026-0106", motivo = MotivoReporte.MONTO_INCORRECTO,
+            comentario = "No sé por qué me cobran \$318.500.",
+            fecha = LocalDate.of(2026, 10, 5)),
+        Reporte(codigo = "REP-0011", folio = "CP-2026-0109", motivo = MotivoReporte.YA_PAGUE,
+            comentario = "Pagué por transferencia directa al instituto el 03-10.",
+            fecha = LocalDate.of(2026, 10, 3),
+            estado = EstadoReporte.EN_GESTION, codigoAdministrador = "AG-02"),
+        Reporte(codigo = "REP-0009", folio = "CP-2026-0111", motivo = MotivoReporte.MONTO_INCORRECTO,
+            comentario = "Repacté el crédito y me siguen cobrando la cuota antigua.",
+            fecha = LocalDate.of(2026, 9, 18),
+            estado = EstadoReporte.RESUELTO, codigoAdministrador = "AG-01",
+            respuesta = "La empresa anuló la cuota por repactación (22-09-2026).")
+    )
+
 }

@@ -2,6 +2,7 @@ package cl.duocuc.pagoflex.viewmodel
 
 import androidx.lifecycle.ViewModel
 import cl.duocuc.pagoflex.data.DatosPrueba
+import cl.duocuc.pagoflex.data.Repositorio
 import cl.duocuc.pagoflex.model.EstadoCompromiso
 import cl.duocuc.pagoflex.model.SituacionUiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +18,7 @@ class SituacionViewModel : ViewModel() {
 
         val usuario = DatosPrueba.usuarios.first { it.codigo == codigoUsuario }
 
-        val vigentes = DatosPrueba.compromisos.filter {
+        val vigentes = Repositorio.compromisos.value.filter {
 
             it.codigoUsuario == codigoUsuario &&
                     it.estado != EstadoCompromiso.PAGADO &&

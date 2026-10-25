@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -26,9 +28,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cl.duocuc.pagoflex.R
+import cl.duocuc.pagoflex.data.DatosPrueba
 import cl.duocuc.pagoflex.model.SituacionUiState
 import cl.duocuc.pagoflex.ui.comoFecha
 import cl.duocuc.pagoflex.ui.comoPesos
+import cl.duocuc.pagoflex.ui.theme.components.TarjetaCompromiso
 import cl.duocuc.pagoflex.ui.theme.theme.EstadoVencido
 import cl.duocuc.pagoflex.ui.theme.theme.EstadoVencidoFondo
 import cl.duocuc.pagoflex.ui.theme.theme.PagoFlexTheme
@@ -36,18 +40,25 @@ import cl.duocuc.pagoflex.viewmodel.SituacionViewModel
 import java.time.LocalDate
 
 @Composable
-fun SituacionScreen(viewModel: SituacionViewModel = viewModel()) {
+fun SituacionScreen(
+    viewModel: SituacionViewModel = viewModel(),
+    onVerCompromiso: (String) -> Unit = {}
+) {
     val estado by viewModel.uiState.collectAsStateWithLifecycle()
-    SituacionContenido(estado)
+    SituacionContenido(estado, onVerCompromiso)
 }
 
 @Composable
-fun SituacionContenido(estado: SituacionUiState) {
+fun SituacionContenido(
+    estado: SituacionUiState,
+    onVerCompromiso: (String) -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .safeDrawingPadding()
+            .verticalScroll(rememberScrollState())
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -82,6 +93,27 @@ fun SituacionContenido(estado: SituacionUiState) {
                     .background(EstadoVencidoFondo, MaterialTheme.shapes.small)
                     .padding(horizontal = 14.dp, vertical = 10.dp)
             )
+        }
+
+        Text(
+            text = "Mis compromisos",
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+
+        if (estado.compromisos.isEmpty()) {
+            Text(
+                text = "No tienes compromisos vigentes 🎉",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        } else {
+            estado.compromisos.forEach { compromiso ->
+                TarjetaCompromiso(
+                    compromiso = compromiso,
+                    onClick = { onVerCompromiso(compromiso.folio) }
+                )
+            }
         }
     }
 }
@@ -125,10 +157,11 @@ fun TarjetaResumen(estado: SituacionUiState) {
 @Preview(showBackground = true)
 @Composable
 fun SituacionPreview() {
-    PagoFlexTheme() {
+    PagoFlexTheme {
         SituacionContenido(
             SituacionUiState(
                 primerNombre = "Camila",
+                compromisos = DatosPrueba.compromisos.filter { it.codigoUsuario == "UF-01" },
                 totalDelMes = 633400,
                 proximoVencimiento = LocalDate.of(2026, 10, 10),
                 cantidadVencidos = 1
