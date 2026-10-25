@@ -15,4 +15,8 @@ sealed class Rutas(val ruta: String) {
     data object Detalle : Rutas("detalle/{folio}") {
         fun crear(folio: String) = "detalle/$folio"
     }
+
+    data object Bandeja : Rutas("bandeja/{codigo}") {
+        fun crear(codigo: String) = "bandeja/$codigo"
+    }
 }

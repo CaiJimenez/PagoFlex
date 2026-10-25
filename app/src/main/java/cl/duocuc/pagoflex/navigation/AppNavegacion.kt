@@ -6,6 +6,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import cl.duocuc.pagoflex.ui.screens.BandejaScreen
 import cl.duocuc.pagoflex.ui.screens.DetalleScreen
 import cl.duocuc.pagoflex.ui.screens.InicioScreen
 import cl.duocuc.pagoflex.ui.screens.LoginScreen
@@ -40,7 +41,7 @@ fun AppNavegacion() {
                 onAbrir = { id ->
                     when (id) {
                         "compromisos" -> navController.navigate(Rutas.Situacion.crear(codigo))
-                        // Pasos 5, 6 y 7: "mis_reportes", "bandeja" y "mis_casos"
+                        "bandeja" -> navController.navigate(Rutas.Bandeja.crear(codigo))
                     }
                 }
             )
@@ -65,7 +66,15 @@ fun AppNavegacion() {
             DetalleScreen(
                 folio = folio,
                 onVolver = { navController.popBackStack() },
-                onReportar = { /* Paso 4: ir a la pantalla de reportar */ }
+                onReportar = { /* ir a la pantalla de reportar */ }
+            )
+        }
+
+        composable(Rutas.Bandeja.ruta) { entrada ->
+            val codigo = entrada.arguments?.getString("codigo") ?: ""
+            BandejaScreen(
+                codigoAgente = codigo,
+                onVolver = { navController.popBackStack() }
             )
         }
     }
