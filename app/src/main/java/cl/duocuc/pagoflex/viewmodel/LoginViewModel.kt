@@ -2,6 +2,7 @@ package cl.duocuc.pagoflex.viewmodel
 
 import androidx.lifecycle.ViewModel
 import cl.duocuc.pagoflex.data.DatosPrueba
+import cl.duocuc.pagoflex.data.Repositorio
 import cl.duocuc.pagoflex.model.LoginUiState
 import cl.duocuc.pagoflex.model.Usuario
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -50,11 +51,9 @@ class LoginViewModel : ViewModel() {
             return null
         }
 
-        val usuario = DatosPrueba.usuarios.firstOrNull {
-            it.correo.equals(estado.correo, ignoreCase = true)
-        }
+        val usuario = Repositorio.buscarUsuarioPorCorreo(estado.correo)
 
-        if (usuario == null || estado.contrasena != DatosPrueba.CLAVE_DEMO) {
+        if (usuario == null || estado.contrasena.trim() != DatosPrueba.CLAVE_DEMO) {
             _uiState.update { it.copy(errorIngreso = "El correo o la contraseña no coinciden") }
             return null
         }

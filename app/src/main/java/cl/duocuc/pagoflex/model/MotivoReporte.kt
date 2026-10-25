@@ -2,9 +2,9 @@ package cl.duocuc.pagoflex.model
 
 enum class MotivoReporte (val etiqueta: String){
 
-    YA_PAGUE("Ya pague mi compromiso"),
-    NO_RECONOZCO("No reconozco este cargo"),
-    MONTO_INCORRECTO("El monto no es el que corresponde"),
+    YA_PAGUE("Ya pagué por otro medio"),
+    NO_RECONOZCO("No reconozco este cobro"),
+    MONTO_INCORRECTO("El monto no corresponde"),
     OTRO("Otro")
 
 }

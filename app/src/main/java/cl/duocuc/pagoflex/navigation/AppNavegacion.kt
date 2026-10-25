@@ -10,6 +10,7 @@ import cl.duocuc.pagoflex.ui.screens.BandejaScreen
 import cl.duocuc.pagoflex.ui.screens.DetalleScreen
 import cl.duocuc.pagoflex.ui.screens.InicioScreen
 import cl.duocuc.pagoflex.ui.screens.LoginScreen
+import cl.duocuc.pagoflex.ui.screens.ReportarScreen
 import cl.duocuc.pagoflex.ui.screens.SituacionScreen
 import cl.duocuc.pagoflex.viewmodel.SituacionViewModel
 
@@ -66,7 +67,7 @@ fun AppNavegacion() {
             DetalleScreen(
                 folio = folio,
                 onVolver = { navController.popBackStack() },
-                onReportar = { /* ir a la pantalla de reportar */ }
+                onReportar = { folioReporte -> navController.navigate(Rutas.Reportar.crear(folioReporte)) }
             )
         }
 
@@ -75,6 +76,15 @@ fun AppNavegacion() {
             BandejaScreen(
                 codigoAgente = codigo,
                 onVolver = { navController.popBackStack() }
+            )
+        }
+
+        composable(Rutas.Reportar.ruta) { entrada ->
+            val folio = entrada.arguments?.getString("folio") ?: ""
+            ReportarScreen(
+                folio = folio,
+                onVolver = { navController.popBackStack() },
+                onTerminar = { navController.popBackStack(Rutas.Situacion.ruta, inclusive = false) }
             )
         }
     }

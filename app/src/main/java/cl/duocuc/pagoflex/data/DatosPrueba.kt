@@ -10,6 +10,7 @@ object DatosPrueba {
     const val CLAVE_DEMO = "PagoFlex#2026"
 
     val empresas = listOf(
+
         Empresa("EC-01", "Altos del Maipo", 8500),
         Empresa("EC-02", "Colegio Bosque Nativo", 5000),
         Empresa("EC-03", "Crédito Andino", 12000),
@@ -18,6 +19,7 @@ object DatosPrueba {
         Empresa("EC-06", "Club Los Halcones", 2000),
         Empresa("EC-07", "Instituto Cordillera", 6000),
         Empresa("EC-08", "Plaza Oriente", 7500)
+
     )
 
     fun empresa(codigo: String): Empresa = empresas.first { it.codigo == codigo }
@@ -40,6 +42,7 @@ object DatosPrueba {
     )
 
     val compromisos = listOf(
+
         Compromiso(folio = "CP-2026-0101", codigoUsuario = "UF-01", empresa = empresa("EC-08"),
             concepto = "Arriendo departamento octubre", numeroCuota = 10, totalCuotas = 12,
             monto = 520000, fechaVencimiento = LocalDate.of(2026, 10, 10)),
@@ -87,19 +90,6 @@ object DatosPrueba {
             estado = EstadoCompromiso.PAGADO)
     )
 
-    val reportes = listOf(
-        Reporte(codigo = "REP-0012", folio = "CP-2026-0106", motivo = MotivoReporte.MONTO_INCORRECTO,
-            comentario = "No sé por qué me cobran \$318.500.",
-            fecha = LocalDate.of(2026, 10, 5)),
-        Reporte(codigo = "REP-0011", folio = "CP-2026-0109", motivo = MotivoReporte.YA_PAGUE,
-            comentario = "Pagué por transferencia directa al instituto el 03-10.",
-            fecha = LocalDate.of(2026, 10, 3),
-            estado = EstadoReporte.EN_GESTION, codigoAdministrador = "AG-02"),
-        Reporte(codigo = "REP-0009", folio = "CP-2026-0111", motivo = MotivoReporte.MONTO_INCORRECTO,
-            comentario = "Repacté el crédito y me siguen cobrando la cuota antigua.",
-            fecha = LocalDate.of(2026, 9, 18),
-            estado = EstadoReporte.RESUELTO, codigoAdministrador = "AG-01",
-            respuesta = "La empresa anuló la cuota por repactación (22-09-2026).")
-    )
+    val reportes = emptyList<Reporte>()
 
 }
