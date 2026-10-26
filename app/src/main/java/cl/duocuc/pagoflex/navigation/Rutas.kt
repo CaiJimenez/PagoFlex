@@ -16,11 +16,19 @@ sealed class Rutas(val ruta: String) {
         fun crear(folio: String) = "detalle/$folio"
     }
 
+    data object Reportar : Rutas("reportar/{folio}") {
+        fun crear(folio: String) = "reportar/$folio"
+    }
+
+    data object MisReportes : Rutas("mis-reportes/{codigo}") {
+        fun crear(codigo: String) = "mis-reportes/$codigo"
+    }
+
     data object Bandeja : Rutas("bandeja/{codigo}") {
         fun crear(codigo: String) = "bandeja/$codigo"
     }
 
-    data object Reportar : Rutas("reportar/{folio}") {
-        fun crear(folio: String) = "reportar/$folio"
+    data object MisCasos : Rutas("mis-casos/{codigo}") {
+        fun crear(codigo: String) = "mis-casos/$codigo"
     }
 }

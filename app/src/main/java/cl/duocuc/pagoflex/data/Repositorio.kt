@@ -57,8 +57,20 @@ object Repositorio {
         recargar()
     }
 
-    fun resolverReporte(codigoReporte: String, respuesta: String) {
+    fun resolverReporte(codigoReporte: String, respuesta: String, seCorrige: Boolean) {
+        val reporte = _reportes.value.firstOrNull { it.codigo == codigoReporte } ?: return
+        val compromiso = compromiso(reporte.folio)
+
         db.resolverReporte(codigoReporte, respuesta)
+
+        if (compromiso != null) {
+            val nuevoEstado = when {
+                seCorrige -> EstadoCompromiso.ANULADO
+                compromiso.fechaVencimiento.isBefore(DatosPrueba.hoy) -> EstadoCompromiso.VENCIDO
+                else -> EstadoCompromiso.PENDIENTE
+            }
+            db.actualizarEstadoCompromiso(reporte.folio, nuevoEstado)
+        }
         recargar()
     }
 }

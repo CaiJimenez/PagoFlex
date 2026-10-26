@@ -10,6 +10,8 @@ import cl.duocuc.pagoflex.ui.screens.BandejaScreen
 import cl.duocuc.pagoflex.ui.screens.DetalleScreen
 import cl.duocuc.pagoflex.ui.screens.InicioScreen
 import cl.duocuc.pagoflex.ui.screens.LoginScreen
+import cl.duocuc.pagoflex.ui.screens.MisCasosScreen
+import cl.duocuc.pagoflex.ui.screens.MisReportesScreen
 import cl.duocuc.pagoflex.ui.screens.ReportarScreen
 import cl.duocuc.pagoflex.ui.screens.SituacionScreen
 import cl.duocuc.pagoflex.viewmodel.SituacionViewModel
@@ -42,7 +44,9 @@ fun AppNavegacion() {
                 onAbrir = { id ->
                     when (id) {
                         "compromisos" -> navController.navigate(Rutas.Situacion.crear(codigo))
+                        "mis_reportes" -> navController.navigate(Rutas.MisReportes.crear(codigo))
                         "bandeja" -> navController.navigate(Rutas.Bandeja.crear(codigo))
+                        "mis_casos" -> navController.navigate(Rutas.MisCasos.crear(codigo))
                     }
                 }
             )
@@ -71,6 +75,23 @@ fun AppNavegacion() {
             )
         }
 
+        composable(Rutas.Reportar.ruta) { entrada ->
+            val folio = entrada.arguments?.getString("folio") ?: ""
+            ReportarScreen(
+                folio = folio,
+                onVolver = { navController.popBackStack() },
+                onTerminar = { navController.popBackStack(Rutas.Situacion.ruta, inclusive = false) }
+            )
+        }
+
+        composable(Rutas.MisReportes.ruta) { entrada ->
+            val codigo = entrada.arguments?.getString("codigo") ?: ""
+            MisReportesScreen(
+                codigoUsuario = codigo,
+                onVolver = { navController.popBackStack() }
+            )
+        }
+
         composable(Rutas.Bandeja.ruta) { entrada ->
             val codigo = entrada.arguments?.getString("codigo") ?: ""
             BandejaScreen(
@@ -79,12 +100,11 @@ fun AppNavegacion() {
             )
         }
 
-        composable(Rutas.Reportar.ruta) { entrada ->
-            val folio = entrada.arguments?.getString("folio") ?: ""
-            ReportarScreen(
-                folio = folio,
-                onVolver = { navController.popBackStack() },
-                onTerminar = { navController.popBackStack(Rutas.Situacion.ruta, inclusive = false) }
+        composable(Rutas.MisCasos.ruta) { entrada ->
+            val codigo = entrada.arguments?.getString("codigo") ?: ""
+            MisCasosScreen(
+                codigoAgente = codigo,
+                onVolver = { navController.popBackStack() }
             )
         }
     }
