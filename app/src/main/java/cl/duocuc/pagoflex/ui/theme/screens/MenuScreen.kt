@@ -103,7 +103,6 @@ fun MenuScreen(
                             .fillMaxHeight()
                     )
                 }
-                // Si la fila tiene una sola opción, se rellena el espacio vacío
                 if (fila.size == 1) Spacer(Modifier.weight(1f))
             }
         }

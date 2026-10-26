@@ -111,7 +111,6 @@ class PagoFlexDbHelper(context: Context) :
     }
 
     private fun precargar(db: SQLiteDatabase) {
-        // Catálogos: el id es la posición en el enum + 1
         precargarCatalogo(db, "rol", "id_rol", Rol.entries.map { it.etiqueta })
         precargarCatalogo(db, "estado_compromiso", "id_estado_compromiso", EstadoCompromiso.entries.map { it.etiqueta })
         precargarCatalogo(db, "motivo_reporte", "id_motivo_reporte", MotivoReporte.entries.map { it.etiqueta })
